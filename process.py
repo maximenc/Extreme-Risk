@@ -1,10 +1,3 @@
-# Extreme-Risk
-Using Extreme Value Theory (EVT) to Estimate Value-at-Risk (VaR) and Expected shortfall (ES)
-
-
-## Simple Usage
-
-```python
 import pandas as pd
 import numpy as np
 import pot
@@ -23,13 +16,18 @@ data = df["UK"]
 
 print(data)
 
+
+
+
 gpd = pot.gpd_pot(data, tu=0.1)
 
 param = gpd.fit_mle()
 
-varq = gpd.varq(Beta=param[0], Xi=param[1], q=0.99)
+varq = gpd.varq(Beta=param[0], Xi=param[1], q=0.999)
 print(varq)
-esq = gpd.esq(Beta=param[0], Xi=param[1], q=0.99)
+esq = gpd.esq(Beta=param[0], Xi=param[1], q=0.999)
 print(esq)
 
-```
+
+
+
