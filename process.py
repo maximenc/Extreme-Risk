@@ -12,7 +12,7 @@ for col in df.columns.values:
 df = df.dropna()
 
 
-data = df["US"]
+data = -df["Italy"]
 #US	UK	Switzerland	Sweden	Spain	Singapore	Norway	Netherlands	Japan	Italy
 
 print(data)
@@ -20,10 +20,7 @@ print(data)
 from statsmodels.distributions.empirical_distribution import ECDF
 
 
-
-
-
-gpd = pot.gpd_pot(data, tu=0.05)
+gpd = pot.gpd_pot(data, tu=0.95)
 print(gpd.u)
 print(gpd.values)
 
@@ -49,15 +46,6 @@ plt.plot(sorted(gpd.values), quantile_i, '.', color='black')
 plt.show()
 
 
-"""
-varq = gpd.varq(Beta=param[0], Xi=param[1], q=0.99)
-print(varq)
-esq = gpd.esq(Beta=param[0], Xi=param[1], q=0.99)
-print(esq)
-"""
-
-
-
 print(param)
 
 param = gpd.fit_mom()
@@ -67,3 +55,4 @@ print(param)
 param = gpd.fit_mpwm()
 
 print(param)
+
