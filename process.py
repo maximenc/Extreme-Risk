@@ -12,22 +12,58 @@ for col in df.columns.values:
 df = df.dropna()
 
 
-data = df["UK"]
+data = df["US"]
+#US	UK	Switzerland	Sweden	Spain	Singapore	Norway	Netherlands	Japan	Italy
 
 print(data)
 
+from statsmodels.distributions.empirical_distribution import ECDF
 
 
 
-gpd = pot.gpd_pot(data, tu=0.1)
+
+
+gpd = pot.gpd_pot(data, tu=0.05)
+print(gpd.u)
+print(gpd.values)
+
 
 param = gpd.fit_mle()
 
-varq = gpd.varq(Beta=param[0], Xi=param[1], q=0.999)
+ecdf = ECDF(gpd.values)
+print(gpd.values)
+
+quantile_i = [gpd.varq(Beta=param[0], Xi=param[1], q=ecdf(x)) for x in sorted(gpd.values)] 
+sorted(gpd.values)
+
+import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
+import matplotlib.transforms as mtransforms
+
+fig, ax = plt.subplots()
+
+x = np.linspace(min(gpd.values), max(gpd.values), 10)
+plt.plot(x, x, '-', color='red')
+plt.plot(sorted(gpd.values), quantile_i, '.', color='black')
+
+plt.show()
+
+
+"""
+varq = gpd.varq(Beta=param[0], Xi=param[1], q=0.99)
 print(varq)
-esq = gpd.esq(Beta=param[0], Xi=param[1], q=0.999)
+esq = gpd.esq(Beta=param[0], Xi=param[1], q=0.99)
 print(esq)
+"""
 
 
 
+print(param)
 
+param = gpd.fit_mom()
+
+print(param)
+
+param = gpd.fit_mpwm()
+
+print(param)

@@ -1,6 +1,6 @@
 # Extreme-Risk
 Using Extreme Value Theory (EVT) to Estimate Value-at-Risk (VaR) and Expected shortfall (ES)
-
+The Peaks-Over-Threshold (POT) model of extreme value theory, and GPD distribution give more accurate description on tail distribution of financial losses.
 
 ## Simple Usage
 
