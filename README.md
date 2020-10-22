@@ -18,18 +18,27 @@ for col in df.columns.values:
     df[col] = np.log(df[col]) - np.log(df[col].shift(1))
 df = df.dropna()
 
-
-data = df["UK"]
+data = -df["Italy"]
+#US	UK	Switzerland	Sweden	Spain	Singapore	Norway	Netherlands	Japan	Italy
 
 print(data)
 
-gpd = pot.gpd_pot(data, tu=0.1)
 
-param = gpd.fit_mle()
+fitted_gpd = pot.gpd_pot(data, tu=0.95, fit="mle")
+print(fitted_gpd.Beta, fitted_gpd.Xi)
 
-varq = gpd.varq(Beta=param[0], Xi=param[1], q=0.99)
-print(varq)
-esq = gpd.esq(Beta=param[0], Xi=param[1], q=0.99)
-print(esq)
+fitted_gpd = pot.gpd_pot(data, tu=0.95, fit="mom")
+print(fitted_gpd.Beta, fitted_gpd.Xi)
+
+fitted_gpd = pot.gpd_pot(data, tu=0.95, fit="pwm")
+print(fitted_gpd.Beta, fitted_gpd.Xi)
+
+print(fitted_gpd.quantile(q=0.99))
+
+pot.mean_exc(data)
+
+fitted_gpd.qq_plot()
+fitted_gpd.pp_plot()
+
 
 ```

@@ -96,9 +96,8 @@ class gpd_pot():
 def mean_exc(data):
     nb_sep = 100
     list_tu = [0.2*(i/nb_sep) for i in range(1,nb_sep)]
-    conf_low = []
-    conf_high = []
-    mean_exc = []
+    mean_exc, conf_low, conf_high = [], [], []
+
     for tu_ in list_tu:
         u = sorted(data)[int(len(data) * (1-tu_))]
         values = ((data.loc[data >= u])).values

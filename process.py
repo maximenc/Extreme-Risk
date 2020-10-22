@@ -11,13 +11,10 @@ for col in df.columns.values:
     df[col] = np.log(df[col]) - np.log(df[col].shift(1))
 df = df.dropna()
 
-
 data = -df["Italy"]
 #US	UK	Switzerland	Sweden	Spain	Singapore	Norway	Netherlands	Japan	Italy
 
 print(data)
-
-
 
 fitted_gpd = pot.gpd_pot(data, tu=0.95, fit="mle")
 print(fitted_gpd.Beta, fitted_gpd.Xi)
