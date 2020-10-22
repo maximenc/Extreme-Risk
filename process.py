@@ -17,42 +17,21 @@ data = -df["Italy"]
 
 print(data)
 
-from statsmodels.distributions.empirical_distribution import ECDF
 
 
-gpd = pot.gpd_pot(data, tu=0.95)
-print(gpd.u)
-print(gpd.values)
+fitted_gpd = pot.gpd_pot(data, tu=0.95, fit="mle")
+print(fitted_gpd.Beta, fitted_gpd.Xi)
+fitted_gpd = pot.gpd_pot(data, tu=0.95, fit="mom")
+print(fitted_gpd.Beta, fitted_gpd.Xi)
+fitted_gpd = pot.gpd_pot(data, tu=0.95, fit="pwm")
+print(fitted_gpd.Beta, fitted_gpd.Xi)
+
+print(fitted_gpd.quantile(q=0.99))
+
+pot.mean_exc(data)
+
+fitted_gpd.qq_plot()
+fitted_gpd.pp_plot()
 
 
-param = gpd.fit_mle()
-
-ecdf = ECDF(gpd.values)
-print(gpd.values)
-
-quantile_i = [gpd.varq(Beta=param[0], Xi=param[1], q=ecdf(x)) for x in sorted(gpd.values)] 
-sorted(gpd.values)
-
-import matplotlib.pyplot as plt
-import matplotlib.lines as mlines
-import matplotlib.transforms as mtransforms
-
-fig, ax = plt.subplots()
-
-x = np.linspace(min(gpd.values), max(gpd.values), 10)
-plt.plot(x, x, '-', color='red')
-plt.plot(sorted(gpd.values), quantile_i, '.', color='black')
-
-plt.show()
-
-
-print(param)
-
-param = gpd.fit_mom()
-
-print(param)
-
-param = gpd.fit_mpwm()
-
-print(param)
 
