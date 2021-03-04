@@ -3,7 +3,7 @@ import numpy as np
 import pot
 
 
-df = pd.read_csv("data/msci1.csv")
+df = pd.read_csv("data/msci.csv")
 df.index = pd.to_datetime(df["Date"], format='%m/%d/%Y')
 df = df.drop(['Date'], axis=1)
 
@@ -14,7 +14,7 @@ df = df.dropna()
 data = -df["Italy"]
 #US	UK	Switzerland	Sweden	Spain	Singapore	Norway	Netherlands	Japan	Italy
 
-print(data)
+
 
 fitted_gpd = pot.gpd_pot(data, tu=0.95, fit="mle")
 print(fitted_gpd.Beta, fitted_gpd.Xi)
